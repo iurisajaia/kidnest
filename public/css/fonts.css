@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-Thin.ttf");
+    font-weight : 100;
+}
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-ExtraLight.ttf");
+    font-weight : 200;
+}
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-Light.ttf");
+    font-weight : 300;
+}
+
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-Regular.ttf");
+    font-weight : 400;
+}
+
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-Medium.ttf");
+    font-weight : 500;
+}
+
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-SemiBold.ttf");
+    font-weight : 600;
+}
+
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-Bold.ttf");
+    font-weight : 700;
+}
+
+@font-face {
+    font-family: 'Noto';
+    src: url("./fonts/NotoSansGeorgian-Black.ttf");
+    font-weight : 800;
+}
+
+.font-noto{
+    font-family: 'Noto';
+}
