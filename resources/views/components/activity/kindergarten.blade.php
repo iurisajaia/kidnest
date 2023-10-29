@@ -4,7 +4,7 @@
     @if(isset($groups) && count($groups))
         @foreach($groups as $group)
             @include('components.activity.kindergarten.header', ['group' => $group])
-            @include('components.activity.kindergarten.new-activity-modal')
+            @include('components.activity.kindergarten.new-activity-modal', ['group' => $group])
             @if(isset($group->activities) && count($group->activities))
                 <div class="flex flex-wrap  justify-center md:justify-start gap-3">
                     @foreach($group->activities as $act)

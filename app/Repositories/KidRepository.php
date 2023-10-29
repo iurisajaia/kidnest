@@ -9,13 +9,38 @@ use App\Models\Staff;
 use App\Models\Summary;
 use App\Models\User;
 use App\Repositories\Interfaces\KidRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 
 class KidRepository implements KidRepositoryInterface
 {
 
-    public function findByPrivateNumberAndMatchForParent(string $privateNumber, int $parentId): Kid | string | null
+    public function search(Request $request): Collection
+    {
+        $query = Kid::query()
+            ->where('kindergarten_id', $request->user()->id)
+            ->with(['group', 'branch','kindergarten', 'parents'])
+            ->orderByDesc('id');
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('private_number', 'LIKE', "%$searchTerm%")
+                    ->orWhere('first_name', 'LIKE', "%$searchTerm%")
+                    ->orWhere('last_name', 'LIKE', "%$searchTerm%")
+                    ->orWhereHas('group', function ($query) use ($searchTerm) {
+                        $query->where('title', 'LIKE', "%$searchTerm%");
+                    });
+            });
+        }
+        return $query->get();
+
+    }
+
+    public function findByPrivateNumberAndMatchForParent(string $privateNumber, int $parentId): Kid|string|null
     {
         try {
             $kid = Kid::query()->where('private_number', $privateNumber)->first();
@@ -28,17 +53,19 @@ class KidRepository implements KidRepositoryInterface
         }
     }
 
-    public function findAdnMatchParents($privateNumber, $id){
+    public function findAdnMatchParents($privateNumber, $id)
+    {
         $users = User::whereJsonContains('user_data->kid_private_number', $privateNumber)->get();
-        if($users && count($users)){
+        if ($users && count($users)) {
             $kid = Kid::query()->findOrFail($id);
-            foreach($users as $user){
+            foreach ($users as $user) {
                 $kid->parents()->attach($user->id);
             }
         }
     }
 
-    public function create(CreateKidRequest $request) : JsonResponse{
+    public function create(CreateKidRequest $request): JsonResponse
+    {
         $kinderGardenId = $request->user()->id;
 
 
@@ -71,7 +98,8 @@ class KidRepository implements KidRepositoryInterface
 
     }
 
-    public function update(CreateKidRequest $request, $id) : JsonResponse{
+    public function update(CreateKidRequest $request, $id): JsonResponse
+    {
         Kid::where('id', $id)->update($request->except(['_token', '_method']));
 
         $this->findAdnMatchParents($request->private_number, $id);
@@ -82,7 +110,8 @@ class KidRepository implements KidRepositoryInterface
 
     }
 
-    public function delete($id) : JsonResponse{
+    public function delete($id): JsonResponse
+    {
         $kid = Kid::query()->findOrFail($id);
 
         $kid->delete();
@@ -93,8 +122,8 @@ class KidRepository implements KidRepositoryInterface
 
     }
 
-
-    public function addSummary(CreateKidSummeryRequest $request, int $id){
+    public function addSummary(CreateKidSummeryRequest $request, int $id)
+    {
         $kid = Kid::query()->findOrFail($id);
 
         $data = [
@@ -105,7 +134,7 @@ class KidRepository implements KidRepositoryInterface
             'branch_id' => $kid['branch_id'],
         ];
 
-        if($request['summary_id']){
+        if ($request['summary_id']) {
             return Summary::where('id', $request['summary_id'])->update($data);
         }
 

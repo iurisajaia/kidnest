@@ -24,6 +24,21 @@ class Kid extends Model
         return $this->hasMany(Summary::class);
     }
 
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function kindergarten(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'kindergarten_id');
+    }
+
     public function summaryForToday()
     {
         return $this->summaries()->whereDate('created_at', Carbon::today())->first();

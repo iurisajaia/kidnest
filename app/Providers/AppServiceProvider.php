@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\ActivityRepository;
 use App\Repositories\BranchRepository;
 use App\Repositories\GroupRepository;
+use App\Repositories\Interfaces\ActivityRepositoryInterface;
 use App\Repositories\Interfaces\BranchRepositoryInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
 use App\Repositories\Interfaces\KidRepositoryInterface;
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BranchRepositoryInterface::class , BranchRepository::class);
         $this->app->bind(GroupRepositoryInterface::class , GroupRepository::class);
         $this->app->bind(StaffRepositoryInterface::class , StaffRepository::class);
+        $this->app->bind(ActivityRepositoryInterface::class , ActivityRepository::class);
     }
 
     /**

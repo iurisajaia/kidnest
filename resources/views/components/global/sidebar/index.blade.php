@@ -12,11 +12,11 @@ $menu = [
                 'url' => route('user.index'),
                 'isActive' => Route::currentRouteName() === 'user.index'
             ],
-            [
-                'title' => __('group'),
-                'url' => route('groups.teacher'),
-                'isActive' => Route::currentRouteName() === 'groups.teacher'
-            ]
+//            [
+//                'title' => __('group'),
+//                'url' => route('groups.teacher'),
+//                'isActive' => Route::currentRouteName() === 'groups.teacher'
+//            ]
 
         ],
         'canAccess' => ['parent','educator', 'manager'],
@@ -75,14 +75,14 @@ $menu = [
         ],
         'canAccess' => ['kindergarten','manager'],
     ],
-    [
-        'title' => __('invoice'),
-        'url' => route('invoices.index'),
-        'icon' => asset('assets/images/sidebar/invoice.svg'),
-        'iconActive' => asset('assets/images/sidebar/active/invoice.svg'),
-        'canAccess' => ['kindergarten', 'manager'],
-        'isActive' => Route::currentRouteName() === 'invoices.index',
-    ],
+//    [
+//        'title' => __('invoice'),
+//        'url' => route('invoices.index'),
+//        'icon' => asset('assets/images/sidebar/invoice.svg'),
+//        'iconActive' => asset('assets/images/sidebar/active/invoice.svg'),
+//        'canAccess' => ['kindergarten', 'manager'],
+//        'isActive' => Route::currentRouteName() === 'invoices.index',
+//    ],
     [
         'title' => __('blog'),
         'url' => '',
@@ -119,14 +119,14 @@ $menu = [
         'canAccess' => ['parent','educator'],
         'isActive' => Route::currentRouteName() === 'activity.index'
     ],
-    [
-        'title' => __('daily.summaries'),
-        'url' => route('summary.index'),
-        'icon' => asset('assets/images/sidebar/activity.svg'),
-        'iconActive' => asset('assets/images/sidebar/activity.svg'),
-        'canAccess' => ['parent'],
-        'isActive' => Route::currentRouteName() === 'summary.index'
-    ],
+//    [
+//        'title' => __('daily.summaries'),
+//        'url' => route('summary.index'),
+//        'icon' => asset('assets/images/sidebar/activity.svg'),
+//        'iconActive' => asset('assets/images/sidebar/activity.svg'),
+//        'canAccess' => ['parent'],
+//        'isActive' => Route::currentRouteName() === 'summary.index'
+//    ],
     [
         'title' => __('eating.schedule'),
         'url' => '',

@@ -23,60 +23,30 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 
-
-    Route::group(['name' => 'groups', 'prefix' => 'groups', 'as' => 'groups.'], function () {
-        Route::get('/{id}', [GroupController::class, 'index'])->name('index');
-        Route::get('/', [GroupController::class, 'getTeacherGroup'])->name('teacher');
-    });
-
-    Route::group(['name' => 'activity', 'prefix' => 'activity', 'as' => 'activity.'], function () {
-        Route::get('/', [ActivityController::class, 'index'])->name('index');
-        Route::post('/send', [ActivityController::class, 'send'])->name('send');
-        Route::post('/', [ActivityController::class, 'store'])->name('store');
-        Route::put('/{id}', [ActivityController::class, 'update'])->name('update');
-    });
-
-    Route::group(['name' => 'summary', 'prefix' => 'summary', 'as' => 'summary.'], function () {
-        Route::get('/', [SummaryController::class, 'index'])->name('index');
-    });
-
-
-
-    Route::group(['name' => 'dashboard', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('index');
-    });
-
-    Route::group(['name' => 'kids', 'prefix' => 'kids', 'as' => 'kids.'], function () {
-        Route::put('/{id}', [KidController::class, 'update'])->name('update');
-        Route::post('summary/{id}', [KidController::class, 'addSummary'])->name('summary');
-    });
-
-
-
-
-    Route::group(['name' => 'invoices', 'prefix' => 'invoices', 'as' => 'invoices.'], function () {
-        Route::get('/', [InvoiceController::class, 'index'])->name('index');
-        Route::get('/create', [InvoiceController::class, 'create'])->name('create');
-    });
-    Route::group(['name' => 'groups', 'prefix' => 'groups', 'as' => 'groups.'], function () {
-        Route::post('/', [GroupController::class, 'store'])->name('store');
-        Route::put('/{id}', [GroupController::class, 'update'])->name('update');
-        Route::delete('/{id}', [GroupController::class, 'delete'])->name('delete');
-    });
-
-    Route::group(['name' => 'staff', 'prefix' => 'staff', 'as' => 'staff.'], function () {
-        Route::post('/', [StaffController::class, 'store'])->name('store');
-        Route::put('/{id}', [StaffController::class, 'update'])->name('update');
-        Route::delete('/{id}', [StaffController::class, 'delete'])->name('delete');
-    });
-
-    Route::group(['name' => 'kids', 'prefix' => 'kids', 'as' => 'kids.'], function () {
-        Route::get('/', [KidController::class, 'index'])->name('index');
-        Route::post('/', [KidController::class, 'store'])->name('store');
-        Route::delete('/{id}', [KidController::class, 'delete'])->name('delete');
-    });
-
-    Route::group(['name' => 'activity', 'prefix' => 'activity', 'as' => 'activity.'], function () {
-        Route::delete('/{id}', [ActivityController::class, 'delete'])->name('delete');
-    });
+//
+//    Route::group(['name' => 'invoices', 'prefix' => 'invoices', 'as' => 'invoices.'], function () {
+//        Route::get('/', [InvoiceController::class, 'index'])->name('index');
+//        Route::get('/create', [InvoiceController::class, 'create'])->name('create');
+//    });
+//    Route::group(['name' => 'groups', 'prefix' => 'groups', 'as' => 'groups.'], function () {
+//        Route::post('/', [GroupController::class, 'store'])->name('store');
+//        Route::put('/{id}', [GroupController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [GroupController::class, 'delete'])->name('delete');
+//    });
+//
+//    Route::group(['name' => 'staff', 'prefix' => 'staff', 'as' => 'staff.'], function () {
+//        Route::post('/', [StaffController::class, 'store'])->name('store');
+//        Route::put('/{id}', [StaffController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [StaffController::class, 'delete'])->name('delete');
+//    });
+//
+//    Route::group(['name' => 'kids', 'prefix' => 'kids', 'as' => 'kids.'], function () {
+//        Route::get('/', [KidController::class, 'index'])->name('index');
+//        Route::post('/', [KidController::class, 'store'])->name('store');
+//        Route::delete('/{id}', [KidController::class, 'delete'])->name('delete');
+//    });
+//
+//    Route::group(['name' => 'activity', 'prefix' => 'activity', 'as' => 'activity.'], function () {
+//        Route::delete('/{id}', [ActivityController::class, 'delete'])->name('delete');
+//    });
 });

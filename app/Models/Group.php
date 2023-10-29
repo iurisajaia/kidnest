@@ -25,8 +25,18 @@ class Group extends Model
         return $this->hasMany(Staff::class, 'group_id');
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
     public function kids(): HasMany {
         return $this->hasMany(Kid::class, 'group_id');
+    }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class , 'group_id');
     }
 
 }

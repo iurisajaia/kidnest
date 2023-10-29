@@ -8,9 +8,9 @@
                     @csrf
                     <div id="activities">
                         <div class="new-activity-item">
-                            @include('components.global.input.standard', ['placeholder' => __('activity'), 'name' => 'activities[0][title]'])
+                            @include('components.global.input.standard', ['placeholder' => __('activity'), 'name' => 'title'])
                             <div class="mt-[6px]">
-                                @include('components.global.input.standard', ['placeholder' => __('description'), 'name' => 'activities[0][description]'])
+                                @include('components.global.input.standard', ['placeholder' => __('description'), 'name' => 'description'])
                             </div>
                         </div>
                     </div>

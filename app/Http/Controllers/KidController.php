@@ -23,9 +23,9 @@ class KidController extends Controller
 
     public function index(Request $request) : View
     {
-        $kids = $this->kidRepository->index($request, true);
+        $kids = $this->kidRepository->search($request);
 
-        return view('pages.kindergarten.kids.index', ['kids' => $kids, 'search' => $request->search]);
+        return view('pages.kids.index', ['kids' => $kids, 'search' => $request['search']]);
     }
 
     public function store(CreateKidRequest $request) : RedirectResponse

@@ -50,11 +50,15 @@
     <img src="{{asset('assets/images/global/kid-avatar-1.png')}}" alt="{{$kid->first_name}}"/>
     <div class='md:w-full md:text-center ml-[10px]'>
         <h2 class='text-[12px] md:text-[16px] font-semibold text-[#212B36]'>{{$kid->first_name}} {{$kid->last_name}}</h2>
-         <p class='text-xs text-gray-400 font-normal'>{{$kid?->parent?->name}} {{$kid->parent?->user_data['lastname'] ?? ''}}</p>
+        @if(count($kid->parents))
+            @foreach($kid->parents as $parent)
+                <p class='text-xs text-gray-400 font-normal'>{{$parent->name ?? ''}}</p>
+            @endforeach
+        @endif
         @if(isset($showData))
             <div class="w-[80%] m-auto">
                 <div class="p-4 mb-4 mt-4 text-sm text-blue-800 w-full rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-                    <span class="font-medium">{{__('kindergarten')}} - </span> {{$kid?->kinderGarten?->name ?? 'არ არის არჩეული'}}
+                    <span class="font-medium">{{__('kindergarten')}} - </span> {{$kid?->kindergarten?->name ?? 'არ არის არჩეული'}}
                 </div>
                 <div class="p-4 mb-4 text-sm w-full text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                     <span class="font-medium">{{__('branch')}} -</span> {{$kid?->branch?->title ?? 'არ არის არჩეული'}}

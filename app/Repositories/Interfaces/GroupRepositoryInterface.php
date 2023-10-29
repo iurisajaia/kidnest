@@ -11,6 +11,7 @@ Interface GroupRepositoryInterface{
     public function show(Request $request, $id);
     public function getGroupsByBranchId(Request $request, $branchId);
     public function getGroupById(Request $request, $id);
+    public function getGroupsWithActivities(Request $request);
     public function getAges();
 
     public function delete(Request $request , $id);

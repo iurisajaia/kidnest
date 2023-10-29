@@ -7,6 +7,7 @@ use App\Http\Requests\Group\CreateGroupRequest;
 use App\Models\Branch;
 use App\Models\Group;
 use App\Models\KidAge;
+use App\Repositories\Interfaces\ActivityRepositoryInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -16,6 +17,14 @@ use Illuminate\Http\Request;
 
 
 class GroupRepository implements  GroupRepositoryInterface {
+
+    private ActivityRepositoryInterface $activityRepository;
+
+    public function __construct(
+        ActivityRepositoryInterface $activityRepository,
+    ){
+        $this->activityRepository = $activityRepository;
+    }
 
     public function getGroupsByBranchId(Request $request, $branchId): Collection
     {
@@ -42,6 +51,9 @@ class GroupRepository implements  GroupRepositoryInterface {
             ...$request->all(),
             'kindergarten_id' => $request->user()->id
         ]);
+
+        $this->activityRepository->createPredefinedActivitiesForGroup($group->id, $request->user()->id);
+
         return response()->json([
             'message' => 'Group Created Successfully',
             'data' => $group
@@ -68,6 +80,13 @@ class GroupRepository implements  GroupRepositoryInterface {
             'message' => 'Group Deleted Successfully',
             'data' => $group
         ], 200);
+    }
+
+    public function getGroupsWithActivities(Request $request): Collection
+    {
+        return Group::where(['kindergarten_id' => $request->user()->id])->with(['activities' => function($q){
+            $q->orderByDesc('id');
+        }, 'branch'])->orderByDesc('id')->get();
     }
 
 }
