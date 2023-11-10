@@ -12,7 +12,9 @@ Interface GroupRepositoryInterface{
     public function getGroupsByBranchId(Request $request, $branchId);
     public function getGroupById(Request $request, $id);
     public function getGroupsWithActivities(Request $request);
+    public function getGroupWithActivities(int $id);
     public function getAges();
+    public function getGroupByAuthUser(Request $request);
 
     public function delete(Request $request , $id);
     public function store(CreateGroupRequest $request);

@@ -12,11 +12,11 @@ $menu = [
                 'url' => route('user.index'),
                 'isActive' => Route::currentRouteName() === 'user.index'
             ],
-//            [
-//                'title' => __('group'),
-//                'url' => route('groups.teacher'),
-//                'isActive' => Route::currentRouteName() === 'groups.teacher'
-//            ]
+            [
+                'title' => __('group'),
+                'url' => route('groups.getGroup'),
+                'isActive' => Route::currentRouteName() === 'groups.getGroup'
+            ]
 
         ],
         'canAccess' => ['parent','educator', 'manager'],
@@ -31,10 +31,11 @@ $menu = [
     ],
     [
         'title' => __('finance'),
-        'url' => '',
+        'url' => route('payment.index'),
         'icon' => asset('assets/images/sidebar/finance.svg'),
+        'iconActive' => asset('assets/images/sidebar/finance.svg'),
         'canAccess' => ['kindergarten'],
-        'isActive' => false
+        'isActive' => Route::currentRouteName() === 'payment.index' || Route::currentRouteName() === 'payment.invoice.create'
     ],
     [
         'title' => __('file'),
@@ -106,10 +107,11 @@ $menu = [
     ],
     [
         'title' => __('payment'),
-        'url' => '',
+        'url' => route('payment.index'),
         'icon' => asset('assets/images/sidebar/calendar.svg'),
+        'iconActive' => asset('assets/images/sidebar/calendar.svg'),
         'canAccess' => ['parent'],
-        'isActive' => false
+        'isActive' => Route::currentRouteName() === 'payment.index'
     ],
     [
         'title' => __('daily.activity'),
@@ -136,10 +138,11 @@ $menu = [
     ],
     [
         'title' => __('attendance'),
-        'url' => '',
+        'url' => route('attendance.index'),
         'icon' => asset('assets/images/sidebar/attendance.svg'),
-        'canAccess' => ['parent', 'educator'],
-        'isActive' => false
+        'iconActive' => asset('assets/images/sidebar/active/attendance.svg'),
+        'canAccess' => ['kindergarten', 'educator'],
+        'isActive' => Route::currentRouteName() === 'attendance.index'
     ],
 
 

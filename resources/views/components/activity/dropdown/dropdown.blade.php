@@ -1,7 +1,7 @@
 <form action="{{route('activity.send')}}" method="POST">
     @csrf
     <input type="hidden" name="activity_id" value="{{$activity['id']}}" />
-    <input type="hidden" name="group_id" value="{{$staff?->group->id}}" />
+    <input type="hidden" name="group_id" value="{{$group->id}}" />
     <input type="hidden" name="staff_id" value="{{$staff?->id}}" />
 
     <div class="mb-[20px]" id="activity-collapse-{{$activity['id']}}" data-accordion="collapse">
@@ -13,7 +13,7 @@
                     aria-controls="activity-collapse-body-{{$activity['id']}}">
                 <div class="flex align-center justify-between">
                     <input type="checkbox" data-activity-id="{{$activity['id']}}" class="w-[20px] h-[20px] mr-[24px] activity-checkbox">
-                    <span class="text-[#444444] mr-[4px]">{{$activity['title']['ka'] ?? ''}}</span>
+                    <span class="text-[#444444] mr-[4px]">{{$activity['title'] ?? ''}}</span>
 {{--                    <img class=" w-[18px] h-[18px] text-[]" src="{{ asset('assets/images/activity/arrow.svg') }}">--}}
                 </div>
                 @if(isset($activity['status']) && $activity['status'] === 'sent')
@@ -23,9 +23,9 @@
 
         </h2>
         <div id="activity-collapse-body-{{$activity['id']}}" class="hidden">
-            @if(isset($staff) && count($staff?->group->kids))
+            @if(count($group->kids))
                 <div class="max-h-[532px] overflow-scroll">
-                    @foreach($staff?->group->kids as $kid)
+                    @foreach($group->kids as $kid)
                         @include('components.activity.kidItem.kidItem', ['activity' => $activity])
                     @endforeach
                 </div>

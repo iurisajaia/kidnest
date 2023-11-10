@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('user_role_id')->nullable();
             $table->json('user_data')->nullable();
             $table->enum('status', UserStatusEnum::getValues())->nullable();
+            $table->date('last_payment_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -43,4 +43,8 @@ class Kid extends Model
     {
         return $this->summaries()->whereDate('created_at', Carbon::today())->first();
     }
+
+    public function getParent(){
+        return $this->parents()->first();
+    }
 }

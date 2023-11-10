@@ -24,6 +24,11 @@ class GroupController extends Controller
     }
 
 
+    public function getGroup(Request $request): View
+    {
+        $group = $this->groupRepository->getGroupByAuthUser($request);
+        return view('pages.groups.educator.index')->with(['group' => $group]);
+    }
 
 
     function index(Request $request, $id): View

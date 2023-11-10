@@ -8,15 +8,11 @@
                     @csrf
                     @method('PUT')
                     @include('components.global.input.standard', ['placeholder' => __('group.title'), 'name' => 'title', 'value' => $group->title])
-                    <select id="age" name="age" class="bg-gray-50 border border-gray-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="age" name="age_id" class="bg-gray-50 border border-gray-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option>{{__('age.category')}}</option>
-                        <option {{$group->age === '0-1' ? 'selected' : ''}} value="0-1">0-1</option>
-                        <option {{$group->age === '0-2' ? 'selected' : ''}} value="0-2">0-2</option>
-                        <option {{$group->age === '1-2' ? 'selected' : ''}} value="1-2">1-2</option>
-                        <option {{$group->age === '2-3' ? 'selected' : ''}} value="2-3">2-3</option>
-                        <option {{$group->age === '3-4' ? 'selected' : ''}} value="3-4">3-4</option>
-                        <option {{$group->age === '4-5' ? 'selected' : ''}} value="4-5">4-5</option>
-                        <option {{$group->age === '5-6' ? 'selected' : ''}} value="5-6">5-6</option>
+                        @foreach($ages as $age)
+                            <option {{$group->age?->age === $age->age ? 'selected' : ''}} value="{{$age->id}}">{{$age->age}}</option>
+                        @endforeach
                     </select>
                     <input type="hidden" name="branch_id" value="{{$branchId}}">
                     <div class="flex justify-end">

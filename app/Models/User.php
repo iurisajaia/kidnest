@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRoleEnum;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,10 +16,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class User extends Authenticatable implements FilamentUser , HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, \Spatie\MediaLibrary\InteractsWithMedia;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
+
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -79,12 +82,27 @@ class User extends Authenticatable implements FilamentUser , HasMedia
     }
 
 
-    public function profileUrl()
+    public function profileUrl(): string
     {
-        $nameSlug = Str::slug($this->name); // Assuming 'name' is the user's name field
+        $nameSlug = Str::slug($this->name);
         return url('/') . '/register/' . $this->id . '/' .$nameSlug;
     }
 
+
+    public function isKindergarten(): bool
+    {
+        return $this->user_role_id === UserRoleEnum::KINDERGARTEN['id'];
+    }
+
+    public function isParent(): bool
+    {
+        return $this->user_role_id === UserRoleEnum::PARENT['id'];
+    }
+
+    public function isEducator(): bool
+    {
+        return $this->user_role_id === UserRoleEnum::EDUCATOR['id'];
+    }
 
 
 

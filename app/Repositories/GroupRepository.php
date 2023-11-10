@@ -9,7 +9,9 @@ use App\Models\Group;
 use App\Models\KidAge;
 use App\Repositories\Interfaces\ActivityRepositoryInterface;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
+use App\Repositories\Interfaces\StaffRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 //use App\Http\Requests\Branch\CreateBranchRequest;
 use App\Repositories\Interfaces\BranchRepositoryInterface;
@@ -19,11 +21,14 @@ use Illuminate\Http\Request;
 class GroupRepository implements  GroupRepositoryInterface {
 
     private ActivityRepositoryInterface $activityRepository;
+    private StaffRepositoryInterface $staffRepository;
 
     public function __construct(
         ActivityRepositoryInterface $activityRepository,
+        StaffRepositoryInterface $staffRepository
     ){
         $this->activityRepository = $activityRepository;
+        $this->staffRepository = $staffRepository;
     }
 
     public function getGroupsByBranchId(Request $request, $branchId): Collection
@@ -88,5 +93,31 @@ class GroupRepository implements  GroupRepositoryInterface {
             $q->orderByDesc('id');
         }, 'branch'])->orderByDesc('id')->get();
     }
+
+    public function getGroupWithActivities(int $id): Model
+    {
+        return Group::where('id', $id)->with(['activities' => function($q){
+            $q->orderByDesc('id');
+        }, 'branch', 'kids', 'kids.parents'])->orderByDesc('id')->first();
+    }
+
+    public function getGroupByAuthUser(Request $request): Model
+    {
+        if($request->user()->isEducator()){
+            $staff = $this->staffRepository->getStaffByUserId($request->user()->id);
+
+
+            return $this->getGroupWithActivities($staff->group_id);
+        }
+
+        if($request->user()->isParent()){
+            return $this->getGroupWithActivities($request->user()?->kids()?->first()?->group_id);
+        }
+
+
+       return Group::query()->first();
+    }
+
+
 
 }

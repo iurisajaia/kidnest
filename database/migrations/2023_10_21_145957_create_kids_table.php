@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('private_number')->nullable();
+            $table->date('registration_date')->nullable();
 
             $table->unsignedBigInteger('kindergarten_id')->nullable();
             $table->foreign('kindergarten_id')->references('id')->on('users')->onDelete('cascade');

@@ -1,6 +1,7 @@
 <div
     class='md:w-[30%] w-[344px] {{isset($showData) ? 'h-auto' : 'h-[103px] md:h-[214px]'}} rounded-2xl shadow flex items-center md:justify-center flex-wrap relative'>
 
+    @role(['kindergarten', 'educator'])
     <div class="absolute right-[20px] md:top-[0px] flex md:pt-[12px] justify-end align-center">
 
         <button id="kidsDropDownButton-{{$kid->id}}" data-dropdown-toggle="kidsDropDownDots-{{$kid->id}}" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
@@ -14,9 +15,14 @@
             <div class="py-1">
                 <button data-modal-target="update-kid-{{$kid->id}}"
                         data-modal-toggle="update-kid-{{$kid->id}}"
-                class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                        class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     {{__('edit')}}
                 </button>
+            </div>
+            <div class="py-1">
+                <a href="{{route('attendance.index', ['groupId' => $group->id, 'kidId' => $kid->id])}}" class="block px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    {{__('attendance')}}
+                </a>
             </div>
             @if($kid->parent)
                 <div class="py-1">
@@ -47,6 +53,7 @@
 
 
     </div>
+    @endrole
     <img src="{{asset('assets/images/global/kid-avatar-1.png')}}" alt="{{$kid->first_name}}"/>
     <div class='md:w-full md:text-center ml-[10px]'>
         <h2 class='text-[12px] md:text-[16px] font-semibold text-[#212B36]'>{{$kid->first_name}} {{$kid->last_name}}</h2>

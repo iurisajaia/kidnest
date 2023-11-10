@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
 use App\Repositories\Interfaces\StaffRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -78,6 +79,11 @@ class StaffRepository implements StaffRepositoryInterface
         return response()->json([
             'message' => 'Staff Deleted Successfully'
         ], 200);
+
+    }
+
+    public function getStaffByUserId($id): Model{
+        return Staff::query()->where('user_id', $id)->first();
 
     }
 

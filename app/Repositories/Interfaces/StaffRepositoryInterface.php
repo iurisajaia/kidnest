@@ -10,4 +10,5 @@ Interface StaffRepositoryInterface{
     public function delete($id);
     public function create(CreateStaffRequest $request);
     public function update(CreateStaffRequest $request, $id);
+    public function getStaffByUserId($id);
 }

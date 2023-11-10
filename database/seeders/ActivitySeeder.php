@@ -27,7 +27,8 @@ class ActivitySeeder extends Seeder
                         'title' => $activity['title'],
                         'description' => $activity['description'],
                         'group_id' => $group->id,
-                        'kindergarten_id' => $group->kindergarten_id
+                        'kindergarten_id' => $group->kindergarten_id,
+                        'key' => $activity['key'] ?? null
                     ]);
                 }
             }

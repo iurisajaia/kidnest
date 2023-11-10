@@ -2,6 +2,7 @@
     @foreach($group->staff as $staff)
         <div class='md:w-[30%] w-[358px]  p-6 border-gray-800 h-[240px] rounded-2xl bg-cover flex items-center justify-center relative'
             style="background-image: url({{asset('assets/images/global/educator-bg.png')}})">
+           @role(['kindergarten'])
             <div class="absolute right-[20px] top-[0px] flex pt-[12px] justify-end align-center">
                 <button data-modal-target="staff-update-modal-{{$staff->id}}"
                         data-modal-toggle="staff-update-modal-{{$staff->id}}">
@@ -17,6 +18,7 @@
                     </button>
                 </form>
             </div>
+            @endrole
             <div class='flex items-center justify-center h-[80px] flex-wrap'>
                 <img src="{{asset('assets/images/global/educator-avatar.png')}}" class="mt-[-20px]"/>
                 <div class="text-center w-full mt-[24px]">

@@ -12,7 +12,6 @@ use App\Http\Controllers\StaffController;
 
 
 Route::group(['middleware' => ['auth']], function () {
-
     Route::group(['name' => 'user', 'prefix' => 'user', 'as' => 'user.'], function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/parent/{id}', [UserController::class, 'getParent'])->name('parent');
@@ -21,32 +20,4 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
         Route::post('/send-message', [UserController::class, 'sendMessage'])->name('send.message');
     });
-
-
-//
-//    Route::group(['name' => 'invoices', 'prefix' => 'invoices', 'as' => 'invoices.'], function () {
-//        Route::get('/', [InvoiceController::class, 'index'])->name('index');
-//        Route::get('/create', [InvoiceController::class, 'create'])->name('create');
-//    });
-//    Route::group(['name' => 'groups', 'prefix' => 'groups', 'as' => 'groups.'], function () {
-//        Route::post('/', [GroupController::class, 'store'])->name('store');
-//        Route::put('/{id}', [GroupController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [GroupController::class, 'delete'])->name('delete');
-//    });
-//
-//    Route::group(['name' => 'staff', 'prefix' => 'staff', 'as' => 'staff.'], function () {
-//        Route::post('/', [StaffController::class, 'store'])->name('store');
-//        Route::put('/{id}', [StaffController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [StaffController::class, 'delete'])->name('delete');
-//    });
-//
-//    Route::group(['name' => 'kids', 'prefix' => 'kids', 'as' => 'kids.'], function () {
-//        Route::get('/', [KidController::class, 'index'])->name('index');
-//        Route::post('/', [KidController::class, 'store'])->name('store');
-//        Route::delete('/{id}', [KidController::class, 'delete'])->name('delete');
-//    });
-//
-//    Route::group(['name' => 'activity', 'prefix' => 'activity', 'as' => 'activity.'], function () {
-//        Route::delete('/{id}', [ActivityController::class, 'delete'])->name('delete');
-//    });
 });

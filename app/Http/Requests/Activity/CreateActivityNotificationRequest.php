@@ -19,11 +19,10 @@ class CreateActivityNotificationRequest extends FormRequest
         return [
             [
                 'activity_id' => 'integer|required',
-//                'activity_category_id' => 'integer|required',
                 'group_id' => 'integer|required',
                 'parent_id' => 'required|array',
                 'parent_id.*' => 'integer',
-                'staff_id' => 'integer|required'
+                'staff_id' => 'integer'
             ]
         ];
     }

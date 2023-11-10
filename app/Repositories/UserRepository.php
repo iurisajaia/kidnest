@@ -4,9 +4,11 @@ namespace App\Repositories;
 
 use App\Enums\UserRoleEnum;
 use App\Http\Requests\User\RegistrationRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\KidRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
@@ -73,6 +75,39 @@ class UserRepository implements UserRepositoryInterface
             ]);
 
             $this->kidRepository->findByPrivateNumberAndMatchForParent($request['kid_private_number'], $user->id);
+
+            return $user;
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return $e->getMessage();
+        }
+    }
+
+    public function update(UpdateUserRequest $request): User|string|JsonResponse
+    {
+        try {
+            $user = User::query()->findOrFail($request->user()->id);
+            $data = [
+                'name' => $request['name'] . ' ' . $request['lastname'],
+                'email' => $request['email'],
+                'status' => $request['status'],
+                'user_data' => [
+                    'address' => $request['address'],
+                    'phone_number' => $request['phone_number'],
+                    'kid_private_number' => $request['kid_private_number'],
+                ]
+
+            ];
+
+            $user->update($data);
+
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'User updated successfully',
+                    'user' => $user
+                ]);
+            }
 
             return $user;
         } catch (\Exception $e) {

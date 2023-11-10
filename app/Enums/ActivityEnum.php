@@ -12,7 +12,8 @@ final class ActivityEnum extends Enum
             ],
             'description' => [
                 'ka' => 'თქვენი ბავშვი უკვე ბაღშია'
-            ]
+            ],
+            'key' => 'kindergarten_visit'
         ],
         [
             'title' => [
