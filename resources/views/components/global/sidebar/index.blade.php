@@ -93,7 +93,7 @@ $menu = [
     ],
     [
         'title' => __('chat'),
-        'url' => '',
+        'url' => '/chatify',
         'icon' => asset('assets/images/sidebar/chat.svg'),
         'canAccess' => ['kindergarten','parent', 'educator','manager'],
         'isActive' => false
