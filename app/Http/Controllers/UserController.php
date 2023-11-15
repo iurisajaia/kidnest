@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\CreateUserRequest;
 use App\Http\Requests\User\RegistrationRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Models\Staff;
+use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
