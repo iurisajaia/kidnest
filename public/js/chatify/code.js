@@ -1258,6 +1258,9 @@ $(document).ready(function () {
   // get contacts list
   getFavoritesList();
 
+  messengerSearch(null);
+
+
   // Clear typing timeout
   clearTimeout(typingTimeout);
 

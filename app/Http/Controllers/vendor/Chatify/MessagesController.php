@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\vendor\Chatify;
+use App\Models\Staff;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -234,13 +235,14 @@ class MessagesController extends Controller
         ->orderBy('max_created_at', 'desc')
         ->groupBy('users.id')
         ->paginate($request->per_page ?? $this->perPage);
-
-
+//
+//
         $usersList = $users->items();
 
 
         if (count($usersList) > 0) {
             $contacts = '';
+
             foreach ($usersList as $user) {
                 $contacts .= Chatify::getContactItem($user);
             }
@@ -323,6 +325,20 @@ class MessagesController extends Controller
         ], 200);
     }
 
+    public function getPredefinedContacts(Request $request)
+    {
+        $contacts = User::where('id','!=',Auth::user()->id)->get();
+        $contactsList = null;
+        foreach ($contacts as $contact) {
+            $contactsList .= Chatify::getContactItem($contact);
+        }
+        return Response::json([
+            'contacts' => $contactsList,
+            'total' => $contacts->count() ?? 0,
+            'last_page' => 1,
+        ], 200);
+    }
+
     /**
      * Search in messenger
      *
@@ -331,11 +347,37 @@ class MessagesController extends Controller
      */
     public function search(Request $request)
     {
+        $userId = Auth::user()->id;
         $getRecords = null;
         $input = trim(filter_var($request['input']));
-        $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
+
+        $records = User::query()
+                    ->where('id','!=', $userId)
+                    ->when($request->user()->isKindergarten(), function ($query) use ($userId) {
+                        $query->whereExists(function ($query) use ($userId) {
+                            $query->select(DB::raw(1))
+                                ->from('staff')
+                                ->whereRaw('users.id = staff.user_id')
+                                ->where('kindergarten_id', $userId);
+                        })->orWhereJsonContains('user_data->kindergarten_id', $userId);
+                    })
+                    ->when($request->user()->isParent(), function ($query) use ($request) {
+                        $query->whereExists(function ($query) use ($request) {
+                            $query->select(DB::raw(1))
+                                ->from('staff')
+                                ->whereRaw('users.id = staff.user_id')
+                                ->where('kindergarten_id', $request->user()['user_data']['kindergarten_id']);
+                        })->orWhere('id', $request->user()['user_data']['kindergarten_id']);
+                    })
+                    ->when($request->user()->isEducator(), function ($query) use ($userId) {
+                        $query->whereJsonContains('user_data->kindergarten_id', Staff::where('user_id', $userId)->first()->kindergarten_id);
+                    })
+                    ->when($input, function ($query) use ($input) {
+                        $query->where('name', 'like', "%{$input}%")
+                            ->orWhere('email', 'like', "%{$input}%");
+                    })
                     ->paginate($request->per_page ?? $this->perPage);
+
         foreach ($records->items() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',
