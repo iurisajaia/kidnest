@@ -17,7 +17,7 @@ class GroupResource extends Resource
 {
     protected static ?string $model = Group::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
 
     public static function form(Form $form): Form
     {
@@ -70,14 +70,14 @@ class GroupResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -85,5 +85,5 @@ class GroupResource extends Resource
             'create' => Pages\CreateGroup::route('/create'),
             'edit' => Pages\EditGroup::route('/{record}/edit'),
         ];
-    }    
+    }
 }
