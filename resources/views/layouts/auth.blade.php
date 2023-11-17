@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
-    @stack('scripts')
 
 </head>
 
@@ -45,6 +44,7 @@
 <script src="{{ asset('js/flowbite.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
+@stack('scripts')
 
 </body>
 

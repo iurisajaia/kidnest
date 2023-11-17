@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\UserRoleEnum;
+use App\Enums\UserStatusEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
@@ -18,7 +20,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
@@ -31,10 +33,10 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
+//                Forms\Components\TextInput::make('password')
+//                    ->password()
+//                    ->required()
+//                    ->maxLength(255),
                 Forms\Components\TextInput::make('private_number')
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('profile_image')
@@ -45,8 +47,15 @@ class UserResource extends Resource
                     ->preload()
                     ->required()
                     ->reactive(),
-                Forms\Components\TextInput::make('user_data'),
-                Forms\Components\TextInput::make('status'),
+                Forms\Components\KeyValue::make('user_data'),
+                Forms\Components\Select::make('status')
+                ->options([
+                    UserStatusEnum::MOTHER => 'დედა',
+                    UserStatusEnum::FATHER => 'მამა',
+                    UserStatusEnum::SISTER_BROTHER => 'და/ძმა',
+                    UserStatusEnum::GRANDPARENT => 'ბებია/ბაბუა',
+
+                ]),
             ]);
     }
 
@@ -71,7 +80,15 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('user_role_id')
+                    ->options([
+                        UserRoleEnum::KINDERGARTEN['id'] => 'ბაღი',
+                        UserRoleEnum::EDUCATOR['id'] => 'აღმზრდელი',
+                        UserRoleEnum::MANAGER['id'] => 'მენეჯერი',
+                        UserRoleEnum::PARENT['id'] =>'მშობელი',
+                        UserRoleEnum::PSYCHOLOGIST['id'] => 'ფსიქოლოგი',
+                    ])
+                ->label('როლი')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

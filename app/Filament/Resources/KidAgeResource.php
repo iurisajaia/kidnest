@@ -17,7 +17,7 @@ class KidAgeResource extends Resource
 {
     protected static ?string $model = KidAge::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-musical-note';
 
     public static function form(Form $form): Form
     {
@@ -55,14 +55,14 @@ class KidAgeResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -70,5 +70,5 @@ class KidAgeResource extends Resource
             'create' => Pages\CreateKidAge::route('/create'),
             'edit' => Pages\EditKidAge::route('/{record}/edit'),
         ];
-    }    
+    }
 }

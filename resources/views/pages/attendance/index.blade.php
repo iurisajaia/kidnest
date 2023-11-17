@@ -10,9 +10,9 @@
                 უკან
             </a>
             <div class="flex">
-                <img class="w-[24px] h-[24px]" src="{{asset('assets/images/attendance/calendar.svg')}}" />
-                <p href="#" class="text-[#637381]">კვირა</p>
-                <img src="{{asset('assets/images/attendance/arrow-down.svg')}}" />
+                <div class="input-group date align-items-center">
+                    <div id="weekpicker1"></div>
+                </div>
             </div>
         </div>
 
@@ -74,3 +74,23 @@
         @endif
 
 @endsection
+@push('styles')
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/pingcheng/bootstrap4-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/flatly/bootstrap.min.css">
+@endpush
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdn.rawgit.com/pingcheng/bootstrap4-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
+    <!-- Bootstrap 4 Weekpicker JavaScript -->
+    <script src="{{asset('js/bootstrap-weekpicker.js')}}" type="text/javascript" ></script>
+
+    <script type="text/javascript">
+        var weekpicker = $("#weekpicker1").weekpicker();
+    </script>
+@endpush
