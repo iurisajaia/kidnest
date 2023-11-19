@@ -2,12 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\SummaryController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KidController;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\FileController;
 
 
 
@@ -19,5 +14,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/update-image', [UserController::class, 'updateProfileImage'])->name('update.image');
         Route::put('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
         Route::post('/send-message', [UserController::class, 'sendMessage'])->name('send.message');
+
+        Route::group(['name' => 'file', 'prefix' => 'file', 'as' => 'file.'], function () {
+            Route::get('/', [FileController::class, 'index'])->name('index');
+            Route::post('/upload', [FileController::class, 'upload'])->name('upload');
+        });
+
     });
 });

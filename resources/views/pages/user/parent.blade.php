@@ -8,5 +8,10 @@
         @include('components.profile.password-update')
         @include('components.profile.user-update')
         @include('components.profile.kids')
+{{--        <form action="{{ route('user.file.upload') }}" method="post" enctype="multipart/form-data">--}}
+{{--            @csrf--}}
+{{--            <input type="file" name="file" accept="image/*,video/*" required>--}}
+{{--            <button type="submit">Upload</button>--}}
+{{--        </form>--}}
     </div>
 @endsection

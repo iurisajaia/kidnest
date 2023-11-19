@@ -2,14 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Enums\UserRoleEnum;
-use App\Http\Requests\User\RegistrationRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Models\User;
+use App\Http\Requests\User\UpdateUserPasswordRequest;
 use App\Repositories\Interfaces\KidRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Http\Requests\User\RegistrationRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Enums\UserRoleEnum;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserRepository implements UserRepositoryInterface
@@ -49,6 +51,7 @@ class UserRepository implements UserRepositoryInterface
             $relations = $this->getUserRelations($request->user());
 
             return User::query()->with($relations)->findOrFail($request->user()->id);
+
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -78,7 +81,6 @@ class UserRepository implements UserRepositoryInterface
 
             return $user;
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return $e->getMessage();
         }
     }
@@ -111,7 +113,36 @@ class UserRepository implements UserRepositoryInterface
 
             return $user;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return $e->getMessage();
+        }
+    }
+
+    public function updatePassword(UpdateUserPasswordRequest $request): User|string|JsonResponse
+    {
+        try {
+
+            if(!Hash::check($request->old_password, auth()->user()->password)){
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'error' => "Old Password Doesn't match!",
+                    ], 401);
+                }
+                return back()->with("error", "Old Password Doesn't match!");
+            }
+
+            $user = User::query()->where('id', auth()->user()->id)->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Password updated successfully',
+                ]);
+            }
+
+            return redirect()->back()->with(['success' => 'Password updated successfully']);
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
