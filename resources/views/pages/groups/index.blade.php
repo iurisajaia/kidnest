@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('user')
-    @include('components.global.title.index', ['title' => $group->title])
+    @include('components.global.title.index', ['title' => $group->title, 'subTitle' => \App\Enums\AgeEnum::ages[$group->age->id]])
     <div class="flex items-center">
         <a href="{{ route('branches.show', $group->branch_id) }}" class="flex items-center">
             <img src="{{asset('assets/images/global/back.svg')}}" class="mr-[10px]"/>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRoleEnum;
 use App\Models\Branch;
 use App\Models\Group;
 use App\Models\Kid;
@@ -15,7 +16,7 @@ class DashboardController extends Controller
     public function index(Request $request): View{
         $id = $request->user()->id;
 
-        $parents = User::query()->whereJsonContains('user_data->kindergarten_id', $id)->count();
+        $parents = User::query()->where('user_role_id', UserRoleEnum::PARENT['id'])->whereJsonContains('user_data->kindergarten_id', $id)->count();
         $branches = Branch::query()->where('kindergarten_id', $id)->count();
         $groups = Group::query()->where('kindergarten_id', $id)->count();
         $staff = Staff::query()->where('kindergarten_id', $id)->count();

@@ -24,6 +24,9 @@ module.exports = {
                 },
                 white: {
                     DEFAULT: '#F8F8F8',
+                },
+                'pencil-box' : {
+                    DEFAULT: 'rgba(145, 158, 171, 0.08)',
                 }
             }
         },

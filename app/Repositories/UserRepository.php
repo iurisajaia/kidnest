@@ -3,15 +3,18 @@
 namespace App\Repositories;
 
 use App\Http\Requests\User\UpdateUserPasswordRequest;
+use App\Models\Kid;
 use App\Repositories\Interfaces\KidRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\User\RegistrationRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 
 class UserRepository implements UserRepositoryInterface
@@ -144,6 +147,47 @@ class UserRepository implements UserRepositoryInterface
             return redirect()->back()->with(['success' => 'Password updated successfully']);
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    public function sendMessage(Request $request): RedirectResponse|JsonResponse
+    {
+        try {
+//            $users = User::query()
+//                ->where('user_role_id', UserRoleEnum::PARENT['id'])
+//                ->whereJsonContains('user_data->kindergarten_id', $request->user()->id);
+//
+//
+//            $phoneNumbers = [];
+//
+//            foreach ($users as $user) {
+//                $phoneNumbers[] = $user->phone_number;
+//            }
+
+
+//            if ($phoneNumbers && count($phoneNumbers)) {
+                $token = '240|pkBuftIvI59BjVnSoCzdnZ9GEOeCNYWero6jSdeZ';
+
+                $dataToSend = [
+                    'subject' => 'Morty',
+                    'message' => $request->text ?? 'მოგესალმებით ! შეგახსენებთ ბაგა ბაღი new age - ში სწავლის საფასირის გადახდის რიცხვი არის 1 ოქტომბერი , საფასურის დაგვიანებაზე, ყოველ ვადაგადაცილებულ დღეზე, დაგერიცხებათ ჯარიმა 10 ლარის ოდენობით.',
+                    'phone_numbers' => ['995598297961']
+                ];
+
+
+                Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                    'accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ])->post('https://smsservice.inexphone.ge/api/v1/sms/bulk', $dataToSend);
+//            }
+
+            return redirect()->back()->with(['success' => 'Message sent successfully']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 

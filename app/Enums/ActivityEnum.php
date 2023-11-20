@@ -78,19 +78,6 @@ final class ActivityEnum extends Enum
             'description' => [
                 'ka' => 'თქვენმა შვილმა უკვე დაიძინა'
             ]
-        ],
-        [
-            'title' => [
-                'ka' => 'ძილი'
-            ],
-            'description' => [
-                'ka' => 'თქვენმა ბავშვი უკვე დაიძინა'
-            ],
-            'categories' => [
-                ['title' => [
-                    'ka' => 'თქვენმა შვილმა უკვე დაიძინა'
-                ]]
-            ]
-        ],
+        ]
     ];
 }

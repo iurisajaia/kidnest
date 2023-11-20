@@ -89,9 +89,7 @@ class GroupRepository implements  GroupRepositoryInterface {
 
     public function getGroupsWithActivities(Request $request): Collection
     {
-        return Group::where(['kindergarten_id' => $request->user()->id])->with(['activities' => function($q){
-            $q->orderByDesc('id');
-        }, 'branch'])->orderByDesc('id')->get();
+        return Group::where(['kindergarten_id' => $request->user()->id])->with(['activities', 'branch'])->orderByDesc('id')->get();
     }
 
     public function getGroupWithActivities(int $id): Model
