@@ -1,4 +1,4 @@
-<div class="w-full md:w-5/12 border border-gray-200 rounded-lg shadow flex items-center justify-center flex-col">
+<div class="w-full border border-gray-200 rounded-lg shadow flex items-center justify-center flex-col h-[284px]">
     <div class="flex items-center cursor-pointer justify-center w-[144px] h-[144px] relative rounded-full border-2 border-brand-100 relative">
         <div class="absolute flex flex-col items-center">
             <img src="{{asset('assets/images/user/camera.svg')}}" alt="" class="w-[32px] h-[32px]"/>

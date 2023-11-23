@@ -48,7 +48,7 @@
     "new.kid" : "ბავშვის დამატება",
     "edit" : "რედაქტირება",
     "new.password" : "ახალი პაროლი",
-    "confirm.password" : "გაიმერორეთ პაროლი",
+    "confirm.password" : "პაროლის გამეორება",
     "update" : "განახლება",
     "phone.number" : "მობილურის ნომერი",
     "address" : "მისამართი",
@@ -95,5 +95,8 @@
     "registration.address" : "რეგისტრაციის მისამართი",
     "copy" : "დაკოპირება",
     "your.message" : "თქვენი შეტყობინება",
-    "add.manager" : "მენეჯერის დამატება"
+    "add.manager" : "მენეჯერის დამატება",
+    "upload.photo" : "ფოტოს ატვირთვა",
+    "delete.profile" : "პროფილის წაშლა",
+    "message.placeholder" : "დღეს არ მოიყვანოთ ბავშვი, შუქი არ არის"
 }

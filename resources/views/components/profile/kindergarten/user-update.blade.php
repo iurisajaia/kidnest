@@ -6,14 +6,6 @@
         @method('PUT')
         <div class="flex w-full gap-[16px] flex-wrap sm:flex-nowrap">
             <div class="w-full sm:w-3/6">
-                @role(['parent'])
-                <div class="pb-4">
-                    @include('components.global.input.standard', ['placeholder' => __('name'), 'name' => 'name', 'value' => $user?->name])
-                    @error('name')
-                    <span>{{$message}}</span>
-                    @enderror
-                </div>
-                @endrole
                 <div class="pb-4">
                     @include('components.global.input.standard', ['placeholder' => __('phone.number'), 'name' => 'user_data[phone_number]', 'value' => $user?->user_data['phone_number'] ?? ''])
                     @error('phone_number')
@@ -26,47 +18,26 @@
                     <span>{{$message}}</span>
                     @enderror
                 </div>
-                @role(['kindergarten'])
                 <div class="pb-4">
                     @include('components.global.input.standard', ['placeholder' => __('payment.date'), 'name' => 'user_data[payment_date]', 'type' => 'date', 'value' => $user?->user_data['payment_date'] ?? ''])
                     @error('payment_date')
                     <span>{{$message}}</span>
                     @enderror
                 </div>
-                @endrole
-
-
             </div>
             <div class="w-full sm:w-3/6">
-                @role(['parent'])
-                <div class="pb-4">
-                    @include('components.global.input.standard', ['placeholder' => __('lastname'), 'name' => 'user_data[lastname]', 'value' => $user?->user_data['lastname'] ?? ''])
-                    @error('lastname')
-                    <span>{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="pb-4">
-                    @include('components.global.input.standard', ['placeholder' => __('kid_private_number'), 'name' => 'user_data[kid_private_number]', 'value' => $user?->user_data['kid_private_number'] ?? ''])
-                    @error('kid_private_number')
-                    <span>{{$message}}</span>
-                    @enderror
-                </div>
-                @endrole
                 <div class="pb-4">
                     @include('components.global.input.standard', ['placeholder' => __('email'), 'name' => 'email', 'value' => $user?->email])
                     @error('email')
                     <span>{{$message}}</span>
                     @enderror
                 </div>
-                @role(['kindergarten'])
                 <div>
                     @include('components.global.input.standard', ['placeholder' => __('iban'), 'name' => 'user_data[iban]', 'value' => $user?->user_data['iban'] ?? ''])
                     @error('iban')
                     <span>{{$message}}</span>
                     @enderror
                 </div>
-                @endrole
-                @role(['parent'])
                 <div class="pb-4 rounded-lg border-[1px] border-[#ECECEC] p-4">
                     @include('components.global.input.radio', ['label' => 'mother', 'name' => 'status', 'id' => 'mother', 'value' => $user?->status])
                     @include('components.global.input.radio', ['label' => 'father', 'name' => 'status', 'id' => 'father', 'value' => $user?->status])
@@ -76,8 +47,6 @@
                     <span class="text-red">{{ $message }}</span>
                     @enderror
                 </div>
-                @endrole
-
             </div>
         </div>
         <div class="flex items-center justify-end w-full mt-[24px]">

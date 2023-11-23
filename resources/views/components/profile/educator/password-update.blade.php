@@ -1,4 +1,4 @@
-<div class="w-full md:w-6/12 border border-gray-200 rounded-lg shadow">
+<div class="w-full border border-gray-200 rounded-lg shadow">
     <form method="POST" action="{{route('user.password.update')}}"
           class="flex w-full h-auto flex-col items-center bg-[#fff] rounded-[16px] mt-[20px] p-6"
     >
