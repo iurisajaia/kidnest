@@ -15,6 +15,7 @@ use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
 
 
 class UserRepository implements UserRepositoryInterface
@@ -190,5 +191,22 @@ class UserRepository implements UserRepositoryInterface
             ], 500);
         }
     }
+
+    public function getParent(Request $request, int $id): View|JsonResponse|string{
+        try {
+            $user = User::query()->with(['kids'])->findOrFail($id);
+
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'user' => $user
+                ]);
+            }
+
+            return view('pages.parent.index')->with(['user' => $user]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 
 }

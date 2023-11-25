@@ -73,5 +73,17 @@ class UserController extends Controller
         }
     }
 
+    public function getParent(Request $request, int $id) : View|JsonResponse
+    {
+        try {
+            return $this->userRepository->getParent($request, $id);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
 
 }

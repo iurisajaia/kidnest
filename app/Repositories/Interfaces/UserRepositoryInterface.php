@@ -17,4 +17,6 @@ Interface UserRepositoryInterface{
     public function update(UpdateUserRequest $request);
 
     public function updatePassword(UpdateUserPasswordRequest $request);
+
+    public function getParent(Request $request, int $id);
 }

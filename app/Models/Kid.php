@@ -47,4 +47,6 @@ class Kid extends Model
     public function getParent(){
         return $this->parents()->first();
     }
+
+
 }

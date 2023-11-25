@@ -15,34 +15,37 @@
             <div class="py-1">
                 <button data-modal-target="update-kid-{{$kid->id}}"
                         data-modal-toggle="update-kid-{{$kid->id}}"
-                        class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                        class="block px-4 py-2 text-left w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     {{__('edit')}}
                 </button>
             </div>
-            <div class="py-1">
-                <a href="{{route('attendance.index', ['groupId' => $group->id, 'kidId' => $kid->id])}}" class="block px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                    {{__('attendance')}}
-                </a>
-            </div>
-            @if($kid->parent)
-                <div class="py-1">
-                    <a href="{{route('user.parent', $kid->parent?->id)}}" class="block px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+{{--            <div class="py-1">--}}
+{{--                <a href="{{route('attendance.index', ['groupId' => $group->id, 'kidId' => $kid->id])}}" class="block px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">--}}
+{{--                    {{__('attendance')}}--}}
+{{--                </a>--}}
+{{--            </div>--}}
+            @if($kid->getParent())
+                <div class="py-1 ">
+                    <a href="{{route('user.parent', $kid->getParent()['id'])}}" class="flex items-center justify-between w-full px-4 py-2 text-center text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                         {{__('profile')}}
+                        <img class=" w-[20px] h-[20px] rounded" src="{{ asset('assets/images/invoice/arrowright.svg') }}">
                     </a>
                 </div>
             @endif
             <div class="py-1">
                 <button data-modal-target="add-summary-{{$kid->id}}"
                         data-modal-toggle="add-summary-{{$kid->id}}"
-                        class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                        class="block px-4 py-2 flex items-center justify-between w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     {{__('summary')}}
+                    <img class=" w-[20px] h-[20px] rounded" src="{{ asset('assets/images/invoice/arrowright.svg') }}">
                 </button>
             </div>
             <div class="py-1">
                 <form action="{{route('kids.delete', $kid->id)}}" method="POST" class="mt-[4px]">
                     @csrf
                     @method('DELETE')
-                    <button class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    <button class="flex items-center text-left px-4 py-2 pl-[10px] w-full text-sm text-[#FF5630] hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <img src="{{asset('assets/images/global/trash.svg')}}" alt="" class="cursor-pointer mr-[10px]">
                         {{__('delete')}}
                     </button>
                 </form>
